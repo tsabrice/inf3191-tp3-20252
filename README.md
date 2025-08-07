@@ -27,7 +27,7 @@ Une plateforme gratuite d'adoption d'animaux de compagnie pour le Québec, conne
 
 1. **Cloner et naviguer vers le projet**
    ```bash
-   git clone <votre-url-repo>
+   git clone git@github.com:tsabrice/inf3191-tp3-20252.git
    cd petadopt
    ```
 
