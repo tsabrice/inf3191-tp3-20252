@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Mettre un animal en adoption - PetAdopt{% endblock %}
+
+{% block content %}
+<section class="content-section" style="margin-top: 100px;">
+    <div class="container">
+        <h2 class="section-title fade-in">Mettre un animal en adoption</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form class="adoption-form fade-in" method="POST" id="adoptionForm">
+                    {{ csrf_token() if csrf_token }}
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Nom de l'animal *</label>
+                                <input type="text" class="form-control" name="name" id="animalName" 
+                                       value="{{ request.form.name if request.form.name }}" required>
+                                <div class="error-message" id="nameError"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Espèce *</label>
+                                <select class="form-control" name="species" id="animalSpecies" required>
+                                    <option value="">Sélectionner une espèce</option>
+                                    <option value="Chien" {% if request.form.species == 'Chien' %}selected{% endif %}>Chien</option>
+                                    <option value="Chat" {% if request.form.species == 'Chat' %}selected{% endif %}>Chat</option>
+                                    <option value="Lapin" {% if request.form.species == 'Lapin' %}selected{% endif %}>Lapin</option>
+                                    <option value="Oiseau" {% if request.form.species == 'Oiseau' %}selected{% endif %}>Oiseau</option>
+                                    <option value="Poisson" {% if request.form.species == 'Poisson' %}selected{% endif %}>Poisson</option>
+                                    <option value="Reptile" {% if request.form.species == 'Reptile' %}selected{% endif %}>Reptile</option>
+                                    <option value="Autre" {% if request.form.species == 'Autre' %}selected{% endif %}>Autre</option>
+                                </select>
+                                <div class="error-message" id="speciesError"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Race *</label>
+                                <input type="text" class="form-control" name="breed" id="animalBreed" 
+                                       value="{{ request.form.breed if request.form.breed }}" required>
+                                <div class="error-message" id="breedError"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Âge (années) *</label>
+                                <input type="number" class="form-control" name="age" id="animalAge" 
+                                       min="0" max="30" value="{{ request.form.age if request.form.age }}" required>
+                                <div class="error-message" id="ageError"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Description *</label>
+                        <textarea class="form-control" name="description" id="animalDescription" 
+                                  rows="4" required>{{ request.form.description if request.form.description }}</textarea>
+                        <div class="error-message" id="descriptionError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Adresse courriel du propriétaire *</label>
+                        <input type="email" class="form-control" name="owner_email" id="ownerEmail" 
+                               value="{{ request.form.owner_email if request.form.owner_email }}" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    
+                    <h5 class="mt-4 mb-3" style="color: #28a745;">Adresse de récupération</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Adresse civique *</label>
+                                <input type="text" class="form-control" name="address" id="address" 
+                                       value="{{ request.form.address if request.form.address }}" required>
+                                <div class="error-message" id="addressError"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Ville *</label>
+                                <input type="text" class="form-control" name="city" id="city" 
+                                       value="{{ request.form.city if request.form.city }}" required>
+                                <div class="error-message" id="cityError"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Code postal *</label>
+                        <input type="text" class="form-control" name="postal_code" id="postalCode" 
+                               placeholder="H1H 1H1" value="{{ request.form.postal_code if request.form.postal_code }}" required>
+                        <div class="error-message" id="postalError"></div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-heart me-2"></i>
+                            Mettre en adoption
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
+{% endblock %}

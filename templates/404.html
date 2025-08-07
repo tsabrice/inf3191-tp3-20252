@@ -1,0 +1,43 @@
+<!-- templates/404.html -->
+{% extends "base.html" %}
+
+{% block title %}Page non trouvée - PetAdopt{% endblock %}
+
+{% block content %}
+<section class="content-section" style="margin-top: 100px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="error-content">
+                    <i class="fas fa-paw fa-5x text-muted mb-4"></i>
+                    <h1 class="display-1 text-primary">404</h1>
+                    <h2 class="mb-4">Oups ! Page non trouvée</h2>
+                    <p class="lead mb-4">
+                        Il semble que cette page ait disparu comme un chat furtif ! 
+                        La page que vous cherchez n'existe pas ou a été déplacée.
+                    </p>
+                    
+                    <div class="mt-4">
+                        <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-home me-2"></i>Retour à l'accueil
+                        </a>
+                        <a href="{{ url_for('animals') }}" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-search me-2"></i>Voir les animaux
+                        </a>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <h5>Que pouvez-vous faire ?</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Vérifier l'URL dans la barre d'adresse</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Utiliser notre menu de navigation</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Rechercher un animal spécifique</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Contacter notre équipe si le problème persiste</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

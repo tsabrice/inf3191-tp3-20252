@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}PetAdopt - Trouvez votre compagnon idéal{% endblock %}
+
+{% block content %}
+
+<section id="home" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+        <h1 class="fade-in">Trouvez votre compagnon idéal</h1>
+        <p class="fade-in">Adoption gratuite d'animaux de compagnie au Québec</p>
+        <form class="search-form fade-in" action="{{ url_for('search') }}" method="GET">
+            <div class="d-flex">
+                <input type="text" class="form-control search-input" name="q" 
+                       placeholder="Rechercher un animal..." value="{{ request.args.get('q', '') }}">
+                <button type="submit" class="btn search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+
+<section id="animals" class="content-section">
+    <div class="container">
+        <h2 class="section-title fade-in">Animaux en vedette</h2>
+        <div class="row">
+            {% for animal in animals %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="animal-card fade-in">
+                    <div class="animal-image">
+                        {% if animal.species|lower == 'chien' %}
+                            <img src="{{ url_for('static', filename='images/chien3.jpg') }}" alt="Chien" loading="lazy">
+                        {% elif animal.species|lower == 'chat' %}
+                            <img src="{{ url_for('static', filename='images/chat2.jpg') }}" alt="Chat" loading="lazy">
+                        {% elif animal.species|lower == 'oiseau' %}
+                            <img src="{{ url_for('static', filename='images/oiseau3.jpg') }}" alt="Oiseau" loading="lazy">
+                        {% elif animal.species|lower == 'lapin' %}
+                            <img src="{{ url_for('static', filename='images/lapin2.jpg') }}" alt="Lapin" loading="lazy">
+                        {% elif animal.species|lower == 'mouton' %}
+                            <img src="{{ url_for('static', filename='images/mouton2.jpg') }}" alt="Mouton" loading="lazy">
+                        {% elif animal.species|lower == 'serpent' %}
+                            <img src="{{ url_for('static', filename='images/reptile3.jpg') }}" alt="Reptile" loading="lazy">
+                        {% elif animal.species|lower == 'escargot' %}
+                            <img src="{{ url_for('static', filename='images/escargot2.jpg') }}" alt="Escargot" loading="lazy">
+                        {% elif animal.species|lower == 'kangourou' %}
+                            <img src="{{ url_for('static', filename='images/kangourou4.jpg') }}" alt="Kangourou" loading="lazy">
+                        {% elif animal.species|lower == 'poisson' %}
+                            <img src="{{ url_for('static', filename='images/poisson1.jpg') }}" alt="Kangourou" loading="lazy">
+                        {% elif animal.species|lower == 'lapin' %}
+                            <img src="{{ url_for('static', filename='images/laoin2.jpg') }}" alt="Kangourou" loading="lazy">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Animal" loading="lazy">
+                        {% endif %}
+                        <div class="animal-badge">{{ animal.species }}</div>
+                    </div>
+                    <div class="animal-info">
+                        <h4 class="animal-name">{{ animal.name }}</h4>
+                        <div class="animal-details">
+                            <strong>{{ animal.breed }}</strong> • {{ animal.age }} an{% if animal.age > 1 %}s{% endif %}
+                        </div>
+                        <p class="animal-description">{{ animal.description | truncate_words(15) }}</p>
+                        <div class="animal-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ animal.city }}, {{ animal.postal_code }}
+                        </div>
+                        <a href="{{ url_for('animal_detail', animal_id=animal.id) }}" class="contact-btn">
+                            <i class="fas fa-info-circle me-2"></i>Voir détails
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="{{ url_for('animals') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-paw me-2"></i>Voir tous les animaux
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="content-section bg-light">
+    <div class="container text-center">
+        <h2 class="section-title">Vous avez un animal à donner ?</h2>
+        <p class="lead mb-4">Aidez un animal à trouver une nouvelle famille aimante.</p>
+        <a href="{{ url_for('add_animal') }}" class="btn btn-success btn-lg">
+            <i class="fas fa-heart me-2"></i>Mettre en adoption
+        </a>
+    </div>
+</section>
+{% endblock %}

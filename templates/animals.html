@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Tous les animaux disponibles - PetAdopt{% endblock %}
+
+{% block content %}
+<section class="content-section" style="margin-top: 100px;">
+    <div class="container">
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-6">
+                <h2 class="section-title text-start mb-0">Animaux disponibles</h2>
+            </div>
+            <div class="col-md-6">
+                <form class="d-flex" action="{{ url_for('search') }}" method="GET">
+                    <input type="text" class="form-control me-2" name="q" 
+                           placeholder="Rechercher..." value="{{ request.args.get('q', '') }}">
+                    <button class="btn btn-outline-primary" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        {% if animals %}
+        <div class="row">
+            {% for animal in animals %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="animal-card fade-in">
+                    <div class="animal-image">
+                        {% if animal.species|lower == 'chien' %}
+                            <img src="{{ url_for('static', filename='images/chien3.jpg') }}" alt="Chien" loading="lazy">
+                        {% elif animal.species|lower == 'chat' %}
+                            <img src="{{ url_for('static', filename='images/chat2.jpg') }}" alt="Chat" loading="lazy">
+                        {% elif animal.species|lower == 'oiseau' %}
+                            <img src="{{ url_for('static', filename='images/oiseau3.jpg') }}" alt="Oiseau" loading="lazy">
+                        {% elif animal.species|lower == 'lapin' %}
+                            <img src="{{ url_for('static', filename='images/lapin2.jpg') }}" alt="Lapin" loading="lazy">
+                        {% elif animal.species|lower == 'mouton' %}
+                            <img src="{{ url_for('static', filename='images/mouton2.jpg') }}" alt="Mouton" loading="lazy">
+                        {% elif animal.species|lower == 'serpent' %}
+                            <img src="{{ url_for('static', filename='images/reptile3.jpg') }}" alt="Reptile" loading="lazy">
+                        {% elif animal.species|lower == 'escargot' %}
+                            <img src="{{ url_for('static', filename='images/escargot2.jpg') }}" alt="Escargot" loading="lazy">
+                        {% elif animal.species|lower == 'kangourou' %}
+                            <img src="{{ url_for('static', filename='images/kangourou4.jpg') }}" alt="Kangourou" loading="lazy">
+                        {% elif animal.species|lower == 'poisson' %}
+                            <img src="{{ url_for('static', filename='images/poisson1.jpg') }}" alt="Kangourou" loading="lazy">
+                        {% elif animal.species|lower == 'lapin' %}
+                            <img src="{{ url_for('static', filename='images/laoin2.jpg') }}" alt="Kangourou" loading="lazy">
+                        {% else %}
+                            <img src="{{ url_for('static', filename='images/default.jpg') }}" alt="Animal" loading="lazy">
+                        {% endif %}
+                        <div class="animal-badge">{{ animal.species }}</div>
+                    </div>
+                    <div class="animal-info">
+                        <h4 class="animal-name">{{ animal.name }}</h4>
+                        <div class="animal-details">
+                            <strong>{{ animal.breed }}</strong> • {{ animal.age }} an{% if animal.age > 1 %}s{% endif %}
+                        </div>
+                        <p class="animal-description">{{ animal.description | truncate_words(15) }}</p>
+                        <div class="animal-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ animal.city }}, {{ animal.postal_code }}
+                        </div>
+                        <a href="{{ url_for('animal_detail', animal_id=animal.id) }}" class="contact-btn">
+                            <i class="fas fa-info-circle me-2"></i>Voir détails
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if total_pages > 1 %}
+        <div class="row mt-5">
+            <div class="col-12 d-flex justify-content-center">
+                <nav aria-label="Navigation des pages">
+                    <ul class="pagination">
+                        {% if page > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('animals', page=page-1) }}">
+                                <i class="fas fa-chevron-left"></i> Précédent
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        {% for p in range(1, total_pages + 1) %}
+                        <li class="page-item {% if p == page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('animals', page=p) }}">{{ p }}</a>
+                        </li>
+                        {% endfor %}
+
+                        {% if page < total_pages %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('animals', page=page+1) }}">
+                                Suivant <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-paw fa-5x text-muted mb-4"></i>
+            <h3>Aucun animal disponible pour le moment</h3>
+            <p class="text-muted">Revenez bientôt pour découvrir de nouveaux compagnons !</p>
+            <a href="{{ url_for('add_animal') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Ajouter un animal
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}{{ animal.name }} - {{ animal.species }} en adoption -
+PetAdopt{% endblock %}
+
+{% block content %}
+<section class="content-section" style="margin-top: 100px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="animal-image-detail">
+                    {% if animal.species|lower == 'chien' %}
+                    <img
+                        src="{{ url_for('static', filename='images/chien3.jpg') }}"
+                        alt="Chien" loading="lazy">
+                    {% elif animal.species|lower == 'chat' %}
+                    <img
+                        src="{{ url_for('static', filename='images/chat2.jpg') }}"
+                        alt="Chat" loading="lazy">
+                    {% elif animal.species|lower == 'oiseau' %}
+                    <img
+                        src="{{ url_for('static', filename='images/oiseau3.jpg') }}"
+                        alt="Oiseau" loading="lazy">
+                    {% elif animal.species|lower == 'lapin' %}
+                    <img
+                        src="{{ url_for('static', filename='images/lapin2.jpg') }}"
+                        alt="Lapin" loading="lazy">
+                    {% elif animal.species|lower == 'mouton' %}
+                    <img
+                        src="{{ url_for('static', filename='images/mouton2.jpg') }}"
+                        alt="Mouton" loading="lazy">
+                    {% elif animal.species|lower == 'serpent' %}
+                    <img
+                        src="{{ url_for('static', filename='images/reptile3.jpg') }}"
+                        alt="Reptile" loading="lazy">
+                    {% elif animal.species|lower == 'escargot' %}
+                    <img
+                        src="{{ url_for('static', filename='images/escargot2.jpg') }}"
+                        alt="Escargot" loading="lazy">
+                    {% elif animal.species|lower == 'kangourou' %}
+                    <img
+                        src="{{ url_for('static', filename='images/kangourou4.jpg') }}"
+                        alt="Kangourou" loading="lazy">
+                    {% elif animal.species|lower == 'poisson' %}
+                    <img
+                        src="{{ url_for('static', filename='images/poisson1.jpg') }}"
+                        alt="Kangourou" loading="lazy">
+                    {% elif animal.species|lower == 'lapin' %}
+                    <img
+                        src="{{ url_for('static', filename='images/laoin2.jpg') }}"
+                        alt="Kangourou" loading="lazy">
+                    {% else %}
+                    <img
+                        src="{{ url_for('static', filename='images/default.jpg') }}"
+                        alt="Animal" loading="lazy">
+                    {% endif %}
+                    <div class="animal-badge-large">{{ animal.species }}</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="animal-details-content">
+                    <h1 class="animal-name-large">{{ animal.name }}</h1>
+
+                    <div class="animal-info-grid">
+                        <div class="info-item">
+                            <i class="fas fa-tag text-primary"></i>
+                            <div>
+                                <strong>Espèce</strong>
+                                <span>{{ animal.species }}</span>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-paw text-primary"></i>
+                            <div>
+                                <strong>Race</strong>
+                                <span>{{ animal.breed }}</span>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-birthday-cake text-primary"></i>
+                            <div>
+                                <strong>Âge</strong>
+                                <span>{{ animal.age }} an{% if animal.age > 1
+                                    %}s{% endif %}</span>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            <div>
+                                <strong>Localisation</strong>
+                                <span>{{ animal.city }}, {{ animal.postal_code
+                                    }}</span>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fas fa-calendar-alt text-primary"></i>
+                            <div>
+                                <strong>Ajouté le</strong>
+                                <span>{{ animal.date_added }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="description-section mt-4">
+                        <h4><i
+                                class="fas fa-info-circle text-primary me-2"></i>Description</h4>
+                        <p class="lead">{{ animal.description }}</p>
+                    </div>
+
+                    <div class="address-section mt-4">
+                        <h4><i class="fas fa-home text-primary me-2"></i>Adresse
+                            de récupération</h4>
+                        <p class="address-text">
+                            {{ animal.address }}<br>
+                            {{ animal.city }}, {{ animal.postal_code }}
+                        </p>
+                    </div>
+
+                    <div class="contact-section mt-4">
+                        <a
+                            href="mailto:{{ animal.owner_email }}?subject=Intérêt pour l'adoption de {{ animal.name }}&body=Bonjour,%0D%0A%0D%0AJe suis intéressé(e) par l'adoption de {{ animal.name }}. Pourriez-vous me donner plus d'informations?%0D%0A%0D%0AMerci!"
+                            class="btn btn-success btn-lg me-3">
+                            <i class="fas fa-envelope me-2"></i>Contacter le
+                            propriétaire
+                        </a>
+
+                        <a href="{{ url_for('animals') }}"
+                            class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-arrow-left me-2"></i>Retour aux
+                            animaux
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animal_detail.css') }}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/animal-detail.js') }}"></script>
+{% endblock %}

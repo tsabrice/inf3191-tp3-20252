@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Contactez-nous - PetAdopt{% endblock %}
+
+{% block content %}
+<section class="content-section" style="margin-top: 100px;">
+    <div class="container">
+        <h2 class="section-title fade-in">Contactez-nous</h2>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <p class="lead mb-5">Une question ? Besoin d'aide ? N'hésitez pas à nous contacter !</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>Adresse courriel</h4>
+                    <p>contact@petadopt.ca</p>
+                    <a href="mailto:contact@petadopt.ca" class="btn btn-outline-primary">
+                        Nous écrire
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h4>Téléphone</h4>
+                    <p>1-800-ADOPTION<br>(1-800-236-7846)</p>
+                    <a href="tel:1-800-236-7846" class="btn btn-outline-primary">
+                        Nous appeler
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>Localisation</h4>
+                    <p>Partout au Québec</p>
+                    <a href="#faq" class="btn btn-outline-primary">
+                        En savoir plus
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <div class="cta-section">
+                    <h3>Prêt à faire la différence ?</h3>
+                    <p class="lead">Rejoignez notre communauté et aidez les animaux à trouver leur foyer parfait.</p>
+                    <div class="mt-4">
+                        <a href="{{ url_for('animals') }}" class="btn btn-primary btn-lg me-3">
+                            <i class="fas fa-search me-2"></i>Adopter un animal
+                        </a>
+                        <a href="{{ url_for('add_animal') }}" class="btn btn-success btn-lg">
+                            <i class="fas fa-heart me-2"></i>Mettre en adoption
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+{% endblock %}
